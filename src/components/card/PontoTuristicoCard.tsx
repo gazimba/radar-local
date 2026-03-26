@@ -1,6 +1,6 @@
 export function PontoTuristicoCard() {
     return (
-        <div className="max-w-lg bg-white rounded-3xl shadow-md overflow-hidden font-sans hover:shadow-lg transition-shadow duration-300">
+        <div className="w-full bg-white rounded-3xl shadow-md overflow-hidden font-sans hover:shadow-lg transition-shadow duration-300">
             <div className="relative h-72">
                 <img
                     src="/images/basilica-bom-jesus.jpg"
