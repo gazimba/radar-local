@@ -1,14 +1,38 @@
-import { InputField } from "../../components/form/input/InputField";
+import { Search } from "lucide-react";
+import { Input } from "../../components/form/input/InputField";
+import { Button } from "../../components/ui/button/Button";
 
 export function Home() {
     return (
-        <div className="flex flex-col items-center justify-center gap-4 w-full h-screen" style={{ backgroundImage: "url('/images/background-elipse.svg')" }}>
-            <img src="/images/radar-local-logo.svg" alt="Logo do sistema radar local" />
-            <InputField />
-            <p>
-                Ao utilizar este serviço você automaticamente concorda
-                com nossos <a href="/terms" className="text-amber-500 hover:underline">termos de uso</a> e <a href="/privacy" className="text-amber-500 hover:underline">políticas de privacidade</a>.
-            </p>
+        <div
+            className="grid grid-cols-3 w-full h-screen bg-no-repeat bg-cover bg-center"
+            style={{ backgroundImage: "url('/images/background-elipse.svg')" }}
+        >
+            {/* Coluna da Esquerda */}
+            <div />
+
+            {/* Coluna do Meio */}
+            <div className="flex flex-col items-center justify-center gap-6 w-full">
+                <img src="/images/radar-local-logo.svg" alt="Logo do sistema radar local" />
+                <div className="flex flex-row gap-2 w-full justify-center items-center">
+                    <Input value={"Congonhas - Minas Gerais"} />
+                    <Button
+                        className="h-full"
+                        onClick={() => alert("Botão clicado!")}
+                        value={"Congonhas - Minas Gerais"}
+                    >
+                        <Search size={30} />
+                    </Button>
+                </div>
+                <p className="text-center text-sm">
+                    Ao utilizar este serviço você automaticamente concorda com nossos{" "}
+                    <a href="/terms" className="text-amber-500 hover:underline">termos de uso</a> e{" "}
+                    <a href="/privacy" className="text-amber-500 hover:underline">políticas de privacidade</a>.
+                </p>
+            </div>
+
+            {/* Coluna da Direita */}
+            <div />
         </div>
     )
 }
