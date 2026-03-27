@@ -6,7 +6,7 @@ import { LinksUteis } from "../../components/list/LinksUteis";
 export function PontoTuristico() {
     return (
         <>
-            <div className="flex flex-col px-8 w-full h-screen items-center">
+            <div className="flex flex-col px-8 w-full h-full items-center">
                 <div className="flex flex-col lg:flex-row gap-6">
                     {/* Ponto Turístico */}
                     <div className="flex flex-col lg:max-w-4xl my-6">

@@ -6,6 +6,8 @@ import { PontoTuristicoDetalhes } from "../pages/PublicPages/PontoTuristicoDetal
 import { Evento } from "../pages/PublicPages/Evento";
 import { EventoDetalhes } from "../pages/PublicPages/EventoDetalhes";
 import { AppLayout } from "../components/layout/AppLayout";
+import { Sugestao } from "../pages/PublicPages/Sugestao";
+import { Login } from "../pages/PublicPages/Login";
 
 export function AuthRoutes() {
     return(
@@ -17,6 +19,8 @@ export function AuthRoutes() {
                 <Route path="/ponto-turistico/:id" element={<PontoTuristicoDetalhes />} />
                 <Route path="/evento" element={<Evento />} />
                 <Route path="/evento/:id" element={<EventoDetalhes />} />
+                <Route path="/sugestao" element={<Sugestao />} />
+                <Route path="/login" element={<Login />} />
             </Route>
             {/* Rota para páginas não encontradas */}
             <Route path="*" element={<NotFound />} />

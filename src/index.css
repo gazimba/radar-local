@@ -69,3 +69,7 @@ layer(base);
   --z-index-99999: 99999;
   --z-index-999999: 999999;
 }
+
+*{
+  box-sizing: border-box;
+}
