@@ -1,18 +1,15 @@
 import { Link } from "react-router";
 import { EventoMiniCard } from "../../components/card/EventoMiniCard";
 import { PontoTuristicoCard } from "../../components/card/PontoTuristicoCard";
-import { PesquisaCidadeHeader } from "../../components/header/PesquisaCidadeHeader";
 import { LinksUteis } from "../../components/list/LinksUteis";
 
 export function PontoTuristico() {
     return (
         <>
-            <PesquisaCidadeHeader />
-            <div className="grid grid-cols-12 w-full h-screen">
-                <div className="col-span-1" />
-                <div className="col-span-10 flex flex-col lg:flex-row gap-6">
+            <div className="flex flex-col px-8 w-full h-screen items-center">
+                <div className="flex flex-col lg:flex-row gap-6">
                     {/* Ponto Turístico */}
-                    <div className="flex flex-col lg:max-w-6xl">
+                    <div className="flex flex-col lg:max-w-4xl my-6">
                         <h1 className="text-3xl font-bold mb-4 text-blue-800">Pontos Turísticos</h1>
                         <p className="text-md text-gray-500 italic">
                             Confira os principais pontos turísticos de Congonhas e planeje sua visita para aproveitar ao máximo cada atração!
@@ -37,7 +34,7 @@ export function PontoTuristico() {
                             <EventoMiniCard />
                             <EventoMiniCard />
                             <EventoMiniCard />
-                            <Link to={"/evento"} className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3.5 px-6 rounded-xl transition duration-150 shadow-md hover:shadow-lg text-center">
+                            <Link to={"/evento"} className="w-full bg-orange-400 hover:bg-orange-500 text-white font-bold py-3.5 px-6 rounded-xl transition duration-150 shadow-md hover:shadow-lg text-center">
                                 VER TODOS OS EVENTOS
                             </Link>
                         </div>
@@ -45,7 +42,6 @@ export function PontoTuristico() {
                         <LinksUteis />
                     </div>
                 </div>
-                <div className="col-span-1" />
             </div>
         </>
     )

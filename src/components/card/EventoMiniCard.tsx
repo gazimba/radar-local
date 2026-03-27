@@ -22,7 +22,7 @@ export function EventoMiniCard() {
                         <span>19:00 - Praça da Basílica</span>
                     </p>
                 </div>
-                <Link to={"/"} className="text-sm font-semibold text-amber-700 hover:text-amber-800 flex items-center gap-1 group">
+                <Link to={"/evento/detalhes"} className="text-sm font-semibold text-amber-700 hover:text-amber-800 flex items-center gap-1 group">
                     Ver programação
                 </Link>
             </div>

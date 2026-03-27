@@ -5,13 +5,14 @@ import { PontoTuristico } from "../pages/PublicPages/PontoTuristico";
 import { PontoTuristicoDetalhes } from "../pages/PublicPages/PontoTuristicoDetalhes";
 import { Evento } from "../pages/PublicPages/Evento";
 import { EventoDetalhes } from "../pages/PublicPages/EventoDetalhes";
+import { AppLayout } from "../components/layout/AppLayout";
 
 export function AuthRoutes() {
     return(
         <Routes>
             {/* Layout principal */}
-            <Route path="/">
-                <Route index element={<Home />} />
+            <Route index element={<Home />} />
+            <Route element={<AppLayout />}>
                 <Route path="/ponto-turistico" element={<PontoTuristico />} />
                 <Route path="/ponto-turistico/:id" element={<PontoTuristicoDetalhes />} />
                 <Route path="/evento" element={<Evento />} />

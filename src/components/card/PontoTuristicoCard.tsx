@@ -1,4 +1,8 @@
+import { Button } from "../ui/button/Button";
+import { useNavigate } from "react-router";
+
 export function PontoTuristicoCard() {
+    const navigate = useNavigate();
     return (
         <div className="w-full bg-white rounded-3xl shadow-md overflow-hidden font-sans hover:shadow-lg transition-shadow duration-300">
             <div className="relative h-72">
@@ -32,9 +36,9 @@ export function PontoTuristicoCard() {
                 <p className="text-gray-700 leading-relaxed mb-6 line-clamp-3">
                     Patrimônio Cultural da Humanidade pela UNESCO, o santuário abriga as famosas esculturas dos 12 Profetas esculpidas em pedra-sabão pelo mestre Aleijadinho, além das emocionantes Capelas dos Passos da Paixão de Cristo.
                 </p>
-                <button className="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3.5 px-6 rounded-xl transition duration-150 shadow-md hover:shadow-lg">
+                <Button className="w-full" onClick={()=> navigate("/ponto-turistico/detalhes")}>
                     VER DETALHES
-                </button>
+                </Button>
             </div>
         </div>
     )
