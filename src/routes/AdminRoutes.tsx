@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router";
-import { Home } from "../pages/PublicPages/Home";
 import { NotFound } from "../pages/PublicPages/NotFound";
-import { AppLayoutAdmin } from "../components/layout/AppLayoutAdmin";
+import { AppAdminLayout } from "../components/layout/AppAdminLayout";
+import { Home } from "../pages/AdminPages/Home";
 
 export function AdminRoutes() {
     return(
         <Routes>
             {/* Layout principal */}
-            <Route element={<AppLayoutAdmin />}>
+            <Route element={<AppAdminLayout />}>
                 <Route index element={<Home />} />
             </Route>
             {/* Rota para páginas não encontradas */}
