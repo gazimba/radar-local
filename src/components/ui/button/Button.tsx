@@ -1,7 +1,7 @@
 import { cn } from "../../../utils/utils";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: "default" | "form" | "success" | "error" | "disabled";
+    variant?: "default" | "form" | "success" | "error" | "disabled" | "outline";
 }
 
 export function Button({ className, variant = "default", ...rest }: ButtonProps) {
@@ -12,7 +12,8 @@ export function Button({ className, variant = "default", ...rest }: ButtonProps)
         form: "bg-blue-500 hover:bg-blue-700",
         success: "bg-green-500 hover:bg-green-700",
         error: "bg-red-500 hover:bg-red-700",
-        disabled: "bg-gray-500 cursor-not-allowed"
+        disabled: "bg-gray-500 cursor-not-allowed",
+        outline: "bg-transparent border border-white hover:bg-white hover:text-gray-800"
     };
 
     return (
