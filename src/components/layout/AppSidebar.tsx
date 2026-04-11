@@ -6,23 +6,23 @@ export function AppSidebar() {
     return (
         <aside className={`h-full bg-gray-800 text-white p-4 flex flex-col justify-between`}>
             <div className="">
-                <Link to="/admin/cadastrar-ponto-turistico" className="py-2 px-4 rounded hover:bg-gray-700 transition-colors flex">
+                <Link to="/cadastrar-ponto-turistico" className="py-2 px-4 rounded hover:bg-gray-700 transition-colors flex">
                     <CircleChevronRight className="mr-2 text-amber-300" />
                     Cadastrar Ponto Turístico
                 </Link>
-                <Link to="/admin/pontos-turisticos" className="flex py-2 px-4 rounded hover:bg-gray-700 transition-colors">
+                <Link to="/pontos-turisticos" className="flex py-2 px-4 rounded hover:bg-gray-700 transition-colors">
                     <CircleChevronRight className="mr-2 text-amber-300" />
                     Pontos Turísticos
                 </Link>
-                <Link to="/admin/cadastrar-evento" className="flex py-2 px-4 rounded hover:bg-gray-700 transition-colors">
+                <Link to="/cadastrar-evento" className="flex py-2 px-4 rounded hover:bg-gray-700 transition-colors">
                     <CircleChevronRight className="mr-2 text-green-300" />
                     Cadastrar Evento
                 </Link>
-                <Link to="/admin/eventos" className="flex py-2 px-4 rounded hover:bg-gray-700 transition-colors">
+                <Link to="/eventos" className="flex py-2 px-4 rounded hover:bg-gray-700 transition-colors">
                     <CircleChevronRight className="mr-2 text-green-300" />
                     Eventos
                 </Link>
-                <Link to="/admin/usuarios" className="flex py-2 px-4 rounded hover:bg-gray-700 transition-colors">
+                <Link to="/usuarios" className="flex py-2 px-4 rounded hover:bg-gray-700 transition-colors">
                     <CircleChevronRight className="mr-2 text-blue-300" />
                     Usuários
                 </Link>

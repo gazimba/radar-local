@@ -14,11 +14,11 @@ export function AdminRoutes() {
             {/* Layout principal */}
             <Route element={<AppAdminLayout />}>
                 <Route index element={<Home />} />
-                <Route path="admin/cadastrar-ponto-turistico" element={<CadastroPontoTuristico />} />
-                <Route path="admin/pontos-turisticos" element={<PontoTuristico />} />
-                <Route path="admin/cadastrar-evento" element={<CadastroEvento />} />
-                <Route path="admin/eventos" element={<Evento />} />
-                <Route path="admin/usuarios" element={<Usuario />} />
+                <Route path="cadastrar-ponto-turistico" element={<CadastroPontoTuristico />} />
+                <Route path="pontos-turisticos" element={<PontoTuristico />} />
+                <Route path="cadastrar-evento" element={<CadastroEvento />} />
+                <Route path="eventos" element={<Evento />} />
+                <Route path="usuarios" element={<Usuario />} />
             </Route>
             {/* Rota para páginas não encontradas */}
             <Route path="*" element={<NotFound />} />
