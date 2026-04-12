@@ -7,6 +7,7 @@ import { PontoTuristico } from "../pages/AdminPages/PontoTuristico";
 import { CadastroEvento } from "../pages/AdminPages/CadastroEvento";
 import { Evento } from "../pages/AdminPages/Evento";
 import { Usuario } from "../pages/AdminPages/Usuario";
+import { Sugestoes } from "../pages/AdminPages/Sugestoes";
 
 export function AdminRoutes() {
     return (
@@ -14,6 +15,7 @@ export function AdminRoutes() {
             {/* Layout principal */}
             <Route element={<AppAdminLayout />}>
                 <Route index element={<Home />} />
+                <Route path="sugestoes" element={<Sugestoes />} />
                 <Route path="cadastrar-ponto-turistico" element={<CadastroPontoTuristico />} />
                 <Route path="pontos-turisticos" element={<PontoTuristico />} />
                 <Route path="cadastrar-evento" element={<CadastroEvento />} />

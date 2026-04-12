@@ -11,6 +11,10 @@ export function AppSidebar() {
     return (
         <aside className={`h-full bg-gray-800 text-white p-4 flex flex-col justify-between`}>
             <div className="">
+                <Link to="/sugestoes" className="py-2 px-4 rounded hover:bg-gray-700 transition-colors flex">
+                    <CircleChevronRight className="mr-2 text-purple-300" />
+                    Sugestões enviadas
+                </Link>
                 <Link to="/cadastrar-ponto-turistico" className="py-2 px-4 rounded hover:bg-gray-700 transition-colors flex">
                     <CircleChevronRight className="mr-2 text-amber-300" />
                     Cadastrar Ponto Turístico
