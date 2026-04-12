@@ -5,7 +5,7 @@ import { AuthRoutes } from "./AuthRoutes";
 export function Routes() {
     const user = localStorage.getItem("@radar-local:user");
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/">
             {user ? <AdminRoutes /> : <AuthRoutes />}
         </BrowserRouter>
     );
