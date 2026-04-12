@@ -2,16 +2,18 @@ import { Outlet } from "react-router";
 import { AppHeader } from "./AppHeader";
 import { AppFooter } from "./AppFooter";
 
-export function AppLayout () {
+export function AppLayout() {
     return (
-        <div>
-            <header>
+        <div className="flex flex-col h-screen overflow-hidden">
+            <header className="flex-none">
                 <AppHeader />
             </header>
-            <main className="w-full h-full bg-gray-100 flex flex-col items-center justify-center">
-                <Outlet />
+            <main className=" overflow-hidden">
+                <div className="w-full h-screen bg-gray-100 overflow-y-auto">
+                    <Outlet />
+                </div>
             </main>
-            <footer>
+            <footer className="flex-none">
                 <AppFooter />
             </footer>
         </div>

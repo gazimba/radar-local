@@ -81,7 +81,7 @@ export function Login() {
                         disabled={isPending}
                         variant="default"
                         type="submit"
-                        className="w-full py-6 mt-2 text-lg font-semibold uppercase tracking-wide"
+                        className="w-full mt-2 text-lg font-semibold uppercase"
                     >
                         {isPending ? "Validando acesso..." : "Entrar no Sistema"}
                     </Button>

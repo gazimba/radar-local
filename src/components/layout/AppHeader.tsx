@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
 import { PesquisaCidadeHeader } from "../header/PesquisaCidadeHeader";
-import { Plus } from "lucide-react";
+import { LogIn, Plus } from "lucide-react";
 import { Button } from "../ui/button/Button";
 
 export function AppHeader() {
@@ -19,14 +19,26 @@ export function AppHeader() {
                         <PesquisaCidadeHeader />
                     </div>
                 )}
-                {!isLogged && (
-                    <Button
-                        className="flex gap-2 justify-center items-center"
-                        onClick={() => navigate("/sugestao")}
-                    >
-                        <Plus size={20} /> Sugerir local/evento
-                    </Button>
-                )}
+                <div className="flex gap-2">
+                    {!isLogged && (
+                        <Button
+                            className="flex gap-2 justify-center items-center"
+                            onClick={() => navigate("/sugestao")}
+                        >
+                            <Plus size={20} /> Sugerir local/evento
+                        </Button>
+                    )}
+                    {!isLogged && (
+                        <Button
+                            className="flex gap-2 justify-center items-center"
+                            onClick={() => navigate("/login")}
+                            variant="form"
+                        >
+                            <LogIn size={20} />
+                            Login
+                        </Button>
+                    )}
+                </div>
             </div>
         </div>
     );
