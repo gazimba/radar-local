@@ -1,42 +1,46 @@
 import { Button } from "../ui/button/Button";
 import { useNavigate } from "react-router";
 
-export function PontoTuristicoCard() {
+interface PontoTuristicoProps {
+    ponto: {
+        id: number;
+        nome: string;
+        descricao: string;
+        destaques: string;
+    }
+}
+
+export function PontoTuristicoCard({ ponto }: PontoTuristicoProps) {
     const navigate = useNavigate();
+
     return (
         <div className="w-full bg-white rounded-3xl shadow-md overflow-hidden font-sans hover:shadow-lg transition-shadow duration-300">
-            <div className="relative h-72">
+            <div className="relative h-72 w-2xl">
                 <img
                     src="/images/basilica-bom-jesus.jpg"
-                    alt="Foto da Basílica do Bom Jesus de Matosinhos"
+                    alt={`Foto de ${ponto.nome}`}
                     className="absolute inset-0 w-full h-full object-cover"
                 />
-                {/* Gradiente */}
                 <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6 text-white">
                     <h1 className="text-4xl font-extrabold tracking-tight uppercase leading-none">
-                        Basílica do Bom Jesus de Matosinhos
+                        {ponto.nome}
                     </h1>
                     <p className="text-lg mt-2 font-light opacity-90">
-                        Congonhas, Minas Gerais
+                        Minas Gerais
                     </p>
                 </div>
             </div>
             <div className="p-6">
                 <div className="flex items-center justify-between gap-4 mb-4">
                     <h2 className="text-xl font-semibold text-amber-700">
-                        Histórico | Monumento
+                        {ponto.destaques || "Histórico | Monumento"}
                     </h2>
-                    {/* <div className="flex items-center gap-1.5 text-lg">
-                        <span className="font-bold text-gray-900">0.0</span>
-                        <span className="text-gray-500">★</span>
-                        <span className="text-gray-600 text-sm">(0 avaliações)</span>
-                    </div> */}
                 </div>
                 <p className="text-gray-700 leading-relaxed mb-6 line-clamp-3">
-                    Patrimônio Cultural da Humanidade pela UNESCO, o santuário abriga as famosas esculturas dos 12 Profetas esculpidas em pedra-sabão pelo mestre Aleijadinho, além das emocionantes Capelas dos Passos da Paixão de Cristo.
+                    {ponto.descricao}
                 </p>
-                <Button className="w-full" onClick={()=> navigate("/ponto-turistico/detalhes")}>
+                <Button className="w-full" onClick={() => navigate(`/ponto-turistico/${ponto.id}`)}>
                     VER DETALHES
                 </Button>
             </div>

@@ -1,20 +1,15 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-    withCredentials: true
+    baseURL: "http://localhost:3333",
 });
 
-api.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    (error) => {
-        if (error.response?.data?.code === 'TOKEN_EXPIRED') {
-            window.location.href = '/';
-            alert("Sessão expirada! Por favor, faça login novamente.");
-        }
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem("@radar-local:token");
 
-        return Promise.reject(error);
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
     }
-);
+
+    return config;
+});

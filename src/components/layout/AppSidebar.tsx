@@ -3,6 +3,11 @@ import { Link } from "react-router";
 import { Button } from "../ui/button/Button";
 
 export function AppSidebar() {
+    function handleSignOut() {
+        localStorage.removeItem("@radar-local:user");
+        localStorage.removeItem("@radar-local:token");
+        window.location.href = "/";
+    }
     return (
         <aside className={`h-full bg-gray-800 text-white p-4 flex flex-col justify-between`}>
             <div className="">
@@ -28,7 +33,7 @@ export function AppSidebar() {
                 </Link>
             </div>
             <div className="border-t border-gray-700 pt-4">
-                <Button variant="outline" className="w-full flex items-center justify-center gap-2 hover:bg-red-600 hover:text-white transition-all">
+                <Button variant="outline" className="w-full flex items-center justify-center gap-2 hover:bg-red-600 hover:text-white transition-all" onClick={handleSignOut}>
                     <LogOut size={18} />
                     Sair
                 </Button>

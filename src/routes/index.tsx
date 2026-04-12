@@ -1,20 +1,12 @@
-import { BrowserRouter } from "react-router"; 
+import { BrowserRouter } from "react-router";
 import { AdminRoutes } from "./AdminRoutes";
 import { AuthRoutes } from "./AuthRoutes";
 
 export function Routes() {
-    var session = true
-
-    function Route() {
-        if (session == true) {
-                return <AdminRoutes />;
-        }
-        return <AuthRoutes />
-    }
-    
+    const user = localStorage.getItem("@radar-local:user");
     return (
         <BrowserRouter>
-            <Route />
+            {user ? <AdminRoutes /> : <AuthRoutes />}
         </BrowserRouter>
-    )
+    );
 }

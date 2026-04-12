@@ -19,7 +19,7 @@ export function PontoTuristico() {
     async function handleDelete(id: number) {
         try {
             await api.delete(`/api/pontos-turisticos/${id}`);
-            carregarDados(); // Recarrega a lista após deletar
+            carregarDados();
         } catch (error) {
             alert("Erro ao excluir item.");
         }

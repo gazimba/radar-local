@@ -8,13 +8,23 @@ export function Evento() {
     const colunas = [
         { header: "ID", key: "id" },
         { header: "Evento", key: "nome" },
-        { header: "Data", key: "data" },
+        { header: "Data", key: "data_formatada" },
         { header: "Horário", key: "horario" }
     ];
 
     async function carregarDados() {
-        const response = await api.get("/api/eventos");
-        setDados(response.data);
+        try {
+            const response = await api.get("/api/eventos");
+
+            const eventosFormatados = response.data.map((evento: any) => ({
+                ...evento,
+                data_formatada: new Date(evento.data).toLocaleDateString('pt-BR')
+            }));
+
+            setDados(eventosFormatados);
+        } catch (error) {
+            console.error("Erro ao carregar eventos:", error);
+        }
     }
 
     async function handleDelete(id: number) {
@@ -22,17 +32,23 @@ export function Evento() {
             await api.delete(`/api/eventos/${id}`);
             carregarDados();
         } catch (error) {
-            alert("Erro ao excluir evento.");
+            alert("Erro ao excluir evento. Verifique a conexão com o servidor.");
         }
     }
 
-    useEffect(() => { carregarDados(); }, []);
+    useEffect(() => {
+        carregarDados();
+    }, []);
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Gerenciar Eventos</h1>
-            <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-                <TabelaSimples colunas={colunas} dados={dados} onDelete={handleDelete} />
+            <h1 className="text-2xl font-bold mb-4 text-blue-800">Gerenciar Eventos</h1>
+            <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto border border-gray-100">
+                <TabelaSimples
+                    colunas={colunas}
+                    dados={dados}
+                    onDelete={handleDelete}
+                />
             </div>
         </div>
     );
