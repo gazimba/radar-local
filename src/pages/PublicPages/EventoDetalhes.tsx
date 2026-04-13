@@ -25,7 +25,7 @@ export function EventoDetalhes() {
     });
 
     return (
-        <div className="max-w-6xl m-8 p-8 flex flex-col items-center bg-white rounded-3xl shadow-md overflow-hidden font-sans hover:shadow-lg transition-shadow duration-300">
+        <div className="m-auto max-w-6xl p-8 flex flex-col items-center bg-white rounded-3xl shadow-md overflow-hidden font-sans hover:shadow-lg transition-shadow duration-300">
             <h1 className="text-blue-800 font-bold text-3xl uppercase mb-4">{evento.nome}</h1>
 
             <Carrosel />

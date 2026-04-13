@@ -73,3 +73,8 @@ layer(base);
 *{
   box-sizing: border-box;
 }
+
+body {
+  font-family: var(--font-outfit);
+  background-color: var(--color-gray-100);
+}

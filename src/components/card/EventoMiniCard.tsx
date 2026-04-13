@@ -34,7 +34,7 @@ export function EventoMiniCard({ evento }: EventoMiniCardProps) {
                     </h3>
                     <p className="text-sm text-gray-600 mt-1.5 flex items-center gap-1.5">
                         <Clock size={15} />
-                        <span>{evento.horario} - {evento.informacoes}</span>
+                        <span className="line-clamp-2">{evento.horario} - {evento.informacoes}</span>
                     </p>
                 </div>
                 <Link

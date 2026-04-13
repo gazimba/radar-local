@@ -13,7 +13,7 @@ export function AppAdminLayout() {
                 <div className="col-span-1 h-full border-r">
                     <AppSidebar />
                 </div>
-                <div className="col-span-5 w-full h-full bg-gray-100 overflow-y-auto">
+                <div className="col-span-5 w-full h-full overflow-y-auto">
                     <Outlet />
                 </div>
             </main>

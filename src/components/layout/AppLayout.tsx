@@ -8,9 +8,11 @@ export function AppLayout() {
             <header className="flex-none">
                 <AppHeader />
             </header>
-            <main className=" overflow-hidden">
-                <div className="w-full h-screen bg-gray-100 overflow-y-auto">
-                    <Outlet />
+            <main className="h-screen w-full overflow-hidden"> 
+                <div className="h-full w-full overflow-y-auto flex p-4">
+                    <div className="w-full flex items-center justify-center">
+                        <Outlet />
+                    </div>
                 </div>
             </main>
             <footer className="flex-none">

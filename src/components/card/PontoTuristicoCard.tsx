@@ -23,7 +23,7 @@ export function PontoTuristicoCard({ ponto }: PontoTuristicoProps) {
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 p-6 text-white">
-                    <h1 className="text-4xl font-extrabold tracking-tight uppercase leading-none">
+                    <h1 className="text-2xl font-extrabold tracking-tight uppercase leading-none max-w-sm">
                         {ponto.nome}
                     </h1>
                     <p className="text-lg mt-2 font-light opacity-90">

@@ -21,7 +21,7 @@ export function PontoTuristico() {
     return (
         <>
             <div className="flex flex-col px-8 w-full h-full items-center">
-                <div className="flex flex-col lg:flex-row gap-6">
+                <div className="flex flex-col lg:flex-row gap-6 ">
                     <div className="flex flex-col lg:max-w-4xl my-6">
                         <h1 className="text-3xl font-bold mb-4 text-blue-800">Pontos Turísticos</h1>
                         <p className="text-md text-gray-500 italic">
@@ -39,7 +39,7 @@ export function PontoTuristico() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col md:p-6 lg:border-l border-gray-200 lg:min-w-sm">
+                    <div className="flex flex-col md:p-6 lg:border-l border-gray-200 lg:max-w-md">
                         <h2 className="text-2xl font-semibold mb-4 text-blue-800">Eventos</h2>
                         <p className="text-md text-gray-500 italic">
                             Confira os eventos programados para 2026!
