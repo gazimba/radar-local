@@ -28,12 +28,12 @@ async function cadastrarEventoAction(_prevState: any, formData: FormData): Promi
 export function CadastroEvento() {
     const [state, formAction, isPending] = useActionState(cadastrarEventoAction, null);
     return (
-        <div className="p-4">
+        <div className="p-4 flex flex-col">
             <h1 className="text-2xl font-bold mb-4">Cadastro de Evento</h1>
             <form className="bg-white p-6 rounded-lg shadow-md grid grid-cols-1 md:grid-cols-2 gap-2" action={formAction}>
-                
+
                 <FormResposta state={state} />
-                
+
                 <div className="mb-4 col-span-1 md:col-span-2">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="nome">
                         Nome do Evento
@@ -50,13 +50,13 @@ export function CadastroEvento() {
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="destques">
                         Data
                     </label>
-                    <Input id="data" name="data" placeholder="Digite a data do evento" />
+                    <Input id="data" name="data" type="date" placeholder="Digite a data do evento" />
                 </div>
                 <div className="mb-4 col-span-1 md:col-span-1">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="informacoes">
                         Horário
                     </label>
-                    <Input id="horario" name="horario" placeholder="Digite o horário do evento" />
+                    <Input id="horario" name="horario" type="time" placeholder="Digite o horário do evento" />
                 </div>
                 <div className="mb-4 col-span-1 md:col-span-2">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="informacoes">
@@ -70,12 +70,12 @@ export function CadastroEvento() {
                     </label>
                     <div className="grid grid-cols-2 gap-2">
                         <div className="col-span-1">
-                            <span>Longitude:</span>
-                            <Input id="lon" name="longitude" placeholder="Digite a localização do ponto turístico" />
+                            <span>Latitude:</span>
+                            <Input id="lat" name="latitude" type="number" step="any" placeholder="-20.5011" />
                         </div>
                         <div className="col-span-1">
-                            <span>Latitude:</span>
-                            <Input id="lat" name="latitude" placeholder="Digite a localização do ponto turístico" />
+                            <span>Longitude:</span>
+                            <Input id="lon" name="longitude" type="number" step="any" placeholder="-43.8510" />
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@ export function CadastroEvento() {
                         </Button>
                     </div>
                 </div> */}
-                <div className="mb-4 mt-4 flex justify-end">
+                <div className="mb-4 col-span-1 md:col-span-2 flex justify-end">
                     <Button type="submit" disabled={isPending}>
                         {isPending ? "Salvando..." : "Cadastrar"}
                     </Button>
