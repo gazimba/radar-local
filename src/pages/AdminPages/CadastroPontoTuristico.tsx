@@ -60,7 +60,7 @@ export function CadastroPontoTuristico() {
             if (isEditMode) {
                 window.location.reload();
             } else {
-                navigate("/eventos");
+                navigate("/pontos-turisticos");
             }
 
         }
