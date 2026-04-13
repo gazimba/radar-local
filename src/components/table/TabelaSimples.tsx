@@ -7,9 +7,10 @@ interface TabelaProps {
     colunas: Coluna[];
     dados: any[];
     onDelete: (id: number) => void;
+    onEdit?: (id: number) => void;
 }
 
-export function TabelaSimples({ colunas, dados, onDelete }: TabelaProps) {
+export function TabelaSimples({ colunas, dados, onDelete, onEdit }: TabelaProps) {
     return (
         <table className="min-w-full bg-white border border-gray-200">
             <thead>
@@ -21,22 +22,36 @@ export function TabelaSimples({ colunas, dados, onDelete }: TabelaProps) {
                 </tr>
             </thead>
             <tbody>
-                {dados.map((item) => (
-                    <tr key={item.id} className="hover:bg-gray-50">
+                {dados.map((linha, index) => (
+                    <tr key={linha.id || index} className="hover:bg-gray-50">
                         {colunas.map((col) => (
                             <td key={col.key} className="py-2 px-4 border-b">
-                                {item[col.key]}
+                                {linha[col.key]}
                             </td>
                         ))}
-                        <td className="py-2 px-4 border-b text-center">
-                            <button
-                                onClick={() => {
-                                    if (confirm("Tem certeza que deseja excluir?")) onDelete(item.id)
-                                }}
-                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm transition-colors"
-                            >
-                                Excluir
-                            </button>
+                        {/* 1. O flex saiu do <td>... */}
+                        <td className="py-2 px-4 border-b">
+                            {/* 2. ...e veio para esta <div> interna! */}
+                            <div className="flex gap-2 justify-center items-center">
+                                {onEdit && (
+                                    <button
+                                        onClick={() => onEdit(linha.id)}
+                                        // Padronizei as cores para azul
+                                        className="p-2 bg-amber-100 text-amber-700 rounded hover:bg-amber-200 transition-colors flex items-center gap-1 text-sm font-medium"
+                                    >
+                                        Editar
+                                    </button>
+                                )}
+
+                                {onDelete && (
+                                    <button
+                                        onClick={() => onDelete(linha.id)}
+                                        className="p-2 bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors flex items-center gap-1 text-sm font-medium"
+                                    >
+                                        Excluir
+                                    </button>
+                                )}
+                            </div>
                         </td>
                     </tr>
                 ))}

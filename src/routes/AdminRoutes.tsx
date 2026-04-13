@@ -21,6 +21,8 @@ export function AdminRoutes() {
                 <Route path="cadastrar-evento" element={<CadastroEvento />} />
                 <Route path="eventos" element={<Evento />} />
                 <Route path="usuarios" element={<Usuario />} />
+                <Route path="editar-evento/:id" element={<CadastroEvento />} />
+                <Route path="editar-ponto-turistico/:id" element={<CadastroPontoTuristico />} />
             </Route>
             {/* Rota para páginas não encontradas */}
             <Route path="*" element={<NotFound />} />

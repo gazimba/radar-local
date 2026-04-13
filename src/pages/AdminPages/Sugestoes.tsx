@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { TabelaSimples } from "../../components/table/TabelaSimples";
 import { api } from "../../services/api";
-import { Check } from "lucide-react";
+import { Check, Edit3 } from "lucide-react"; 
 
 interface SugestaoItem {
     id: number;
@@ -14,12 +15,13 @@ interface SugestaoItem {
 
 export function Sugestoes() {
     const [dados, setDados] = useState<SugestaoItem[]>([]);
+    const navigate = useNavigate(); 
 
     const colunas = [
         { header: "Tipo", key: "tipo_formatado" },
         { header: "Nome", key: "nome" },
         { header: "Data/Info", key: "info_adicional" },
-        { header: "Situação", key: "acoes" }
+        { header: "Ações", key: "acoes" } 
     ];
 
     async function carregarDados() {
@@ -51,6 +53,11 @@ export function Sugestoes() {
         carregarDados();
     }, []);
 
+    function handleVerDetalhes(id: number, tipo: "evento" | "ponto") {
+        const rota = tipo === "evento" ? "editar-evento" : "editar-ponto-turistico";
+        navigate(`/${rota}/${id}`);
+    }
+
     async function handleAprovar(id: number, tipo: "evento" | "ponto") {
         const endpoint = tipo === "evento" ? "eventos" : "pontos-turisticos";
 
@@ -69,8 +76,16 @@ export function Sugestoes() {
         acoes: (
             <div className="flex gap-2">
                 <button
+                    onClick={() => handleVerDetalhes(item.id, item.tipo)}
+                    className="p-2 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors flex items-center gap-1 text-sm font-medium"
+                    title="Editar/Ver Detalhes"
+                >
+                    <Edit3 size={16} /> Analisar
+                </button>
+
+                <button
                     onClick={() => handleAprovar(item.id, item.tipo)}
-                    className="p-2 bg-amber-100 text-amber-700 rounded hover:bg-amber-200 transition-colors flex items-center gap-1 text-sm"
+                    className="p-2 bg-emerald-100 text-emerald-700 rounded hover:bg-emerald-200 transition-colors flex items-center gap-1 text-sm font-medium"
                     title="Aprovar"
                 >
                     <Check size={18} /> Aprovar
@@ -85,7 +100,7 @@ export function Sugestoes() {
                 Sugestões Pendentes
             </h1>
             <p className="text-gray-500 mb-6 text-sm">
-                Analise as sugestões enviadas pelos usuários antes de publicá-las no Radar Local.
+                Analise os dados enviados pelos usuários. Você pode editar as informações antes de aprovar.
             </p>
 
             <div className="bg-white p-4 rounded-xl shadow-sm overflow-x-auto border border-gray-200">

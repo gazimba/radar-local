@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router"; 
 import { TabelaSimples } from "../../components/table/TabelaSimples";
 import { api } from "../../services/api";
 
 export function Evento() {
     const [dados, setDados] = useState([]);
+    const navigate = useNavigate();
 
     const colunas = [
         { header: "ID", key: "id" },
@@ -15,16 +17,18 @@ export function Evento() {
     async function carregarDados() {
         try {
             const response = await api.get("/api/eventos");
-
             const eventosFormatados = response.data.map((evento: any) => ({
                 ...evento,
                 data_formatada: new Date(evento.data).toLocaleDateString('pt-BR')
             }));
-
             setDados(eventosFormatados);
         } catch (error) {
             console.error("Erro ao carregar eventos:", error);
         }
+    }
+
+    function handleEdit(id: number) {
+        navigate(`/editar-evento/${id}`);
     }
 
     async function handleDelete(id: number) {
@@ -48,6 +52,7 @@ export function Evento() {
                     colunas={colunas}
                     dados={dados}
                     onDelete={handleDelete}
+                    onEdit={handleEdit}
                 />
             </div>
         </div>
