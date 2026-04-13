@@ -1,5 +1,5 @@
 import { useActionState, useEffect, useState } from "react";
-import { useParams } from "react-router"; 
+import { useNavigate, useParams } from "react-router";
 import { FormResposta, type FormState } from "../../components/form/FormResposta";
 import { Input } from "../../components/form/input/InputField";
 import { TextArea } from "../../components/form/input/TextAreaField";
@@ -8,7 +8,7 @@ import { api } from "../../services/api";
 
 async function salvarEventoAction(_prevState: any, formData: FormData): Promise<FormState> {
     const data = Object.fromEntries(formData);
-    const id = data.id as string; 
+    const id = data.id as string;
 
     try {
         const payload = {
@@ -34,11 +34,12 @@ async function salvarEventoAction(_prevState: any, formData: FormData): Promise<
 }
 
 export function CadastroEvento() {
-    const { id } = useParams(); 
+    const { id } = useParams();
     const isEditMode = Boolean(id);
     const [state, formAction, isPending] = useActionState(salvarEventoAction, null);
     const [evento, setEvento] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(isEditMode);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (id) {
@@ -55,15 +56,29 @@ export function CadastroEvento() {
         }
     }, [id]);
 
+    useEffect(() => {
+        if (state?.status === "success") {
+            if (isEditMode) {
+                window.location.reload();
+            } else {
+                navigate("/eventos");
+            }
+
+        }
+    }, [state, isEditMode, navigate]);
+
     if (isLoading) {
         return <div className="p-4">Carregando dados do evento...</div>;
     }
 
     return (
         <div className="p-4 flex flex-col">
-            <h1 className="text-2xl font-bold mb-4">
+            <h1 className="text-2xl font-bold mb-1 text-blue-800 uppercase tracking-tight">
                 {isEditMode ? "Editar Evento" : "Cadastro de Evento"}
             </h1>
+            <p className="text-gray-500 mb-6 text-sm">
+                {isEditMode ? "Altere os dados do evento conforme necessário." : "Preencha os campos abaixo para cadastrar um novo evento. Certifique-se de fornecer informações precisas."}
+            </p>
 
             <form className="bg-white p-6 rounded-lg shadow-md grid grid-cols-1 md:grid-cols-2 gap-2" action={formAction}>
                 <FormResposta state={state} />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router"; 
+import { useNavigate } from "react-router";
 import { TabelaSimples } from "../../components/table/TabelaSimples";
 import { api } from "../../services/api";
 
@@ -46,7 +46,12 @@ export function Evento() {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4 text-blue-800">Gerenciar Eventos</h1>
+            <h1 className="text-2xl font-bold mb-1 text-blue-800 uppercase tracking-tight">
+                Gerenciar Eventos
+            </h1>
+            <p className="text-gray-500 mb-6 text-sm">
+                Aqui estão todos os eventos cadastrados. Você pode editar ou excluir qualquer evento conforme necessário.
+            </p>
             <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto border border-gray-100">
                 <TabelaSimples
                     colunas={colunas}

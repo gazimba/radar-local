@@ -8,6 +8,7 @@ import { CadastroEvento } from "../pages/AdminPages/CadastroEvento";
 import { Evento } from "../pages/AdminPages/Evento";
 import { Usuario } from "../pages/AdminPages/Usuario";
 import { Sugestoes } from "../pages/AdminPages/Sugestoes";
+import { CadastroUsuario } from "../pages/AdminPages/CadastroUsuario";
 
 export function AdminRoutes() {
     return (
@@ -23,6 +24,9 @@ export function AdminRoutes() {
                 <Route path="usuarios" element={<Usuario />} />
                 <Route path="editar-evento/:id" element={<CadastroEvento />} />
                 <Route path="editar-ponto-turistico/:id" element={<CadastroPontoTuristico />} />
+                <Route path="cadastrar-usuario" element={<CadastroUsuario />} />
+
+
             </Route>
             {/* Rota para páginas não encontradas */}
             <Route path="*" element={<NotFound />} />

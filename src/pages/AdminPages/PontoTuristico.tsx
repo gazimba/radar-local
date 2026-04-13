@@ -43,7 +43,12 @@ export function PontoTuristico() {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4 text-blue-800">Gerenciar Pontos Turísticos</h1>
+            <h1 className="text-2xl font-bold mb-1 text-blue-800 uppercase tracking-tight">
+                Gerenciar Pontos Turísticos
+            </h1>
+            <p className="text-gray-500 mb-6 text-sm">
+                Aqui estão todos os pontos turísticos cadastrados. Você pode editar ou excluir qualquer ponto conforme necessário.
+            </p>
             <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto border border-gray-100">
                 <TabelaSimples
                     colunas={colunas}

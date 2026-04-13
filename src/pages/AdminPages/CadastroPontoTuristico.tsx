@@ -1,5 +1,5 @@
 import { useActionState, useEffect, useState } from "react";
-import { useParams } from "react-router"; // Importação para pegar o ID da URL
+import { useNavigate, useParams } from "react-router";
 import { Input } from "../../components/form/input/InputField";
 import { TextArea } from "../../components/form/input/TextAreaField";
 import { Button } from "../../components/ui/button/Button";
@@ -8,7 +8,7 @@ import { api } from "../../services/api";
 
 async function salvarPontoAction(_prevState: any, formData: FormData): Promise<FormState> {
     const data = Object.fromEntries(formData);
-    const id = data.id as string; 
+    const id = data.id as string;
 
     try {
         const payload = {
@@ -34,6 +34,7 @@ async function salvarPontoAction(_prevState: any, formData: FormData): Promise<F
 
 export function CadastroPontoTuristico() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const isEditMode = Boolean(id);
     const [state, formAction, isPending] = useActionState(salvarPontoAction, null);
     const [ponto, setPonto] = useState<any>(null);
@@ -54,15 +55,29 @@ export function CadastroPontoTuristico() {
         }
     }, [id]);
 
+    useEffect(() => {
+        if (state?.status === "success") {
+            if (isEditMode) {
+                window.location.reload();
+            } else {
+                navigate("/eventos");
+            }
+
+        }
+    }, [state, isEditMode, navigate]);
+
     if (isLoading) {
         return <div className="p-4">Carregando dados do ponto turístico...</div>;
     }
 
     return (
         <div className="p-4 flex flex-col">
-            <h1 className="text-2xl font-bold mb-4">
+            <h1 className="text-2xl font-bold mb-1 text-blue-800 uppercase tracking-tight">
                 {isEditMode ? "Editar Ponto Turístico" : "Cadastro de Ponto Turístico"}
             </h1>
+            <p className="text-gray-500 mb-6 text-sm">
+                {isEditMode ? "Altere os dados do ponto turístico conforme necessário." : "Preencha os campos abaixo para cadastrar um novo ponto turístico. Certifique-se de fornecer informações precisas."}
+            </p>
 
             <form className="bg-white p-6 rounded-lg shadow-md grid grid-cols-1 md:grid-cols-2 gap-2" action={formAction}>
 
@@ -105,7 +120,6 @@ export function CadastroPontoTuristico() {
                 </div>
 
                 <div className="mb-4 col-span-1 md:col-span-2 flex justify-end">
-                    {/* Botão dinâmico */}
                     <Button type="submit" disabled={isPending}>
                         {isPending ? "Salvando..." : (isEditMode ? "Atualizar" : "Cadastrar")}
                     </Button>

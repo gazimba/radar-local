@@ -29,14 +29,11 @@ export function TabelaSimples({ colunas, dados, onDelete, onEdit }: TabelaProps)
                                 {linha[col.key]}
                             </td>
                         ))}
-                        {/* 1. O flex saiu do <td>... */}
                         <td className="py-2 px-4 border-b">
-                            {/* 2. ...e veio para esta <div> interna! */}
                             <div className="flex gap-2 justify-center items-center">
                                 {onEdit && (
                                     <button
                                         onClick={() => onEdit(linha.id)}
-                                        // Padronizei as cores para azul
                                         className="p-2 bg-amber-100 text-amber-700 rounded hover:bg-amber-200 transition-colors flex items-center gap-1 text-sm font-medium"
                                     >
                                         Editar
