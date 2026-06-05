@@ -9,16 +9,15 @@ async function cadastrarUsuarioAction(_prevState: any, formData: FormData): Prom
     const data = Object.fromEntries(formData);
 
     try {
-        await api.post('api/usuarios', {
+        await api.post("/api/usuarios", {
             nome: data.nome,
             email: data.email,
             senha: data.senha,
+            cargo: data.cargo,
         });
-
         return { message: "Usuário cadastrado com sucesso!", status: "success" };
     } catch (error: any) {
-        const errorMessage = error.response?.data?.message || "Erro ao cadastrar. Verifique os dados.";
-        return { message: errorMessage, status: "error" };
+        return { message: error.response?.data?.message || "Erro ao cadastrar. Verifique os dados.", status: "error" };
     }
 }
 
@@ -28,10 +27,7 @@ export function CadastroUsuario() {
 
     useEffect(() => {
         if (state?.status === "success") {
-            const timer = setTimeout(() => {
-                navigate("/usuarios");
-            }, 1500);
-
+            const timer = setTimeout(() => navigate("/usuarios"), 1500);
             return () => clearTimeout(timer);
         }
     }, [state, navigate]);
@@ -42,51 +38,43 @@ export function CadastroUsuario() {
                 Cadastro de Usuário
             </h1>
             <p className="mt-2 text-gray-600 mb-4">
-                Aqui você pode cadastrar um novo administrador para o sistema.
+                Crie um novo usuário manualmente com o cargo desejado.
             </p>
 
-            <form action={formAction} className="bg-white p-6 rounded-lg shadow-md border border-gray-100 min-w-md">
-
+            <form action={formAction} className="bg-white p-6 rounded-lg shadow-md border border-gray-100 w-full max-w-md">
                 <FormResposta state={state} />
 
                 <div className="mb-4 mt-2">
                     <label className="block text-gray-700 font-medium mb-2" htmlFor="nome">Nome</label>
-                    <Input
-                        type="text"
-                        id="nome"
-                        name="nome"
-                        placeholder="Digite o nome do usuário"
-                        required
-                    />
+                    <Input type="text" id="nome" name="nome" placeholder="Nome completo" required />
                 </div>
 
                 <div className="mb-4">
                     <label className="block text-gray-700 font-medium mb-2" htmlFor="email">E-mail</label>
-                    <Input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Digite o e-mail do usuário"
-                        required
-                    />
+                    <Input type="email" id="email" name="email" placeholder="email@exemplo.com" required />
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-medium mb-2" htmlFor="senha">Senha</label>
+                    <Input type="password" id="senha" name="senha" placeholder="Mínimo 6 caracteres" required />
                 </div>
 
                 <div className="mb-6">
-                    <label className="block text-gray-700 font-medium mb-2" htmlFor="senha">Senha</label>
-                    <Input
-                        type="password"
-                        id="senha"
-                        name="senha"
-                        placeholder="Digite a senha do usuário"
-                        required
-                    />
+                    <label className="block text-gray-700 font-medium mb-2" htmlFor="cargo">Cargo</label>
+                    <select
+                        id="cargo"
+                        name="cargo"
+                        defaultValue="COMUM"
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    >
+                        <option value="COMUM">Comum</option>
+                        <option value="MODERADOR">Moderador</option>
+                        <option value="ADMINISTRADOR">Administrador</option>
+                    </select>
                 </div>
 
                 <div className="flex justify-end">
-                    <Button
-                        type="submit"
-                        disabled={isPending}
-                    >
+                    <Button type="submit" disabled={isPending}>
                         {isPending ? "Cadastrando..." : "Cadastrar Usuário"}
                     </Button>
                 </div>

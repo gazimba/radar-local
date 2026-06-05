@@ -1,28 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { TabelaSimples } from "../../components/table/TabelaSimples";
+import { Check, Edit3, X } from "lucide-react";
+import { TabelaAdmin } from "../../components/table/TabelaAdmin";
 import { api } from "../../services/api";
-import { Check, Edit3 } from "lucide-react"; 
+import { useToast } from "../../context/ToastContext";
+import { useConfirm } from "../../components/ui/ConfirmDialog";
 
 interface SugestaoItem {
     id: number;
     nome: string;
-    tipo: "evento" | "ponto";
+    tipo: "evento" | "ponto-turistico";
     tipo_formatado: string;
     info_adicional: string;
-    status: string;
 }
 
 export function Sugestoes() {
     const [dados, setDados] = useState<SugestaoItem[]>([]);
-    const navigate = useNavigate(); 
-
-    const colunas = [
-        { header: "Tipo", key: "tipo_formatado" },
-        { header: "Nome", key: "nome" },
-        { header: "Data/Info", key: "info_adicional" },
-        { header: "Ações", key: "acoes" } 
-    ];
+    const [carregando, setCarregando] = useState(true);
+    const navigate = useNavigate();
+    const toast = useToast();
+    const confirm = useConfirm();
 
     async function carregarDados() {
         try {
@@ -33,89 +30,107 @@ export function Sugestoes() {
                 ...item,
                 tipo: "evento",
                 tipo_formatado: "Evento",
-                info_adicional: new Date(item.data).toLocaleDateString('pt-BR')
+                info_adicional: new Date(item.data).toLocaleDateString("pt-BR"),
             }));
 
             const pontosFormatados: SugestaoItem[] = pontos.map((item: any) => ({
                 ...item,
-                tipo: "ponto",
+                tipo: "ponto-turistico",
                 tipo_formatado: "Ponto Turístico",
-                info_adicional: "Local Fixo"
+                info_adicional: "Local fixo",
             }));
 
             setDados([...eventosFormatados, ...pontosFormatados]);
-        } catch (error) {
-            console.error("Erro ao carregar sugestões:", error);
+        } catch {
+            toast.error("Erro ao carregar sugestões.");
+        } finally {
+            setCarregando(false);
         }
     }
 
-    useEffect(() => {
-        carregarDados();
-    }, []);
+    useEffect(() => { carregarDados(); }, []);
 
-    function handleVerDetalhes(id: number, tipo: "evento" | "ponto") {
-        const rota = tipo === "evento" ? "editar-evento" : "editar-ponto-turistico";
-        navigate(`/${rota}/${id}`);
-    }
-
-    async function handleAprovar(id: number, tipo: "evento" | "ponto") {
+    async function handleAprovar(id: number, tipo: "evento" | "ponto-turistico") {
         const endpoint = tipo === "evento" ? "eventos" : "pontos-turisticos";
-
         try {
             await api.patch(`/api/${endpoint}/${id}/aprovar`);
-            alert(`${tipo === "evento" ? "Evento" : "Ponto"} aprovado com sucesso!`);
+            toast.success(`${tipo === "evento" ? "Evento" : "Ponto turístico"} aprovado!`);
             carregarDados();
-        } catch (error) {
-            console.error("Erro ao aprovar:", error);
-            alert("Não foi possível aprovar este item.");
+        } catch {
+            toast.error("Não foi possível aprovar este item.");
         }
     }
 
-    const dadosComAcoes = dados.map((item) => ({
-        ...item,
-        acoes: (
-            <div className="flex gap-2">
-                <button
-                    onClick={() => handleVerDetalhes(item.id, item.tipo)}
-                    className="p-2 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors flex items-center gap-1 text-sm font-medium"
-                    title="Editar/Ver Detalhes"
-                >
-                    <Edit3 size={16} /> Analisar
-                </button>
+    async function handleRejeitar(id: number, tipo: "evento" | "ponto-turistico") {
+        const ok = await confirm({ mensagem: "Deseja rejeitar esta sugestão?", textoBotaoConfirmar: "Rejeitar", variante: "danger" });
+        if (!ok) return;
+        try {
+            await api.patch(`/api/sugestoes/${tipo}/${id}/rejeitar`);
+            toast.success("Sugestão rejeitada.");
+            carregarDados();
+        } catch {
+            toast.error("Erro ao rejeitar sugestão.");
+        }
+    }
 
-                <button
-                    onClick={() => handleAprovar(item.id, item.tipo)}
-                    className="p-2 bg-emerald-100 text-emerald-700 rounded hover:bg-emerald-200 transition-colors flex items-center gap-1 text-sm font-medium"
-                    title="Aprovar"
-                >
-                    <Check size={18} /> Aprovar
-                </button>
-            </div>
-        )
-    }));
+    const colunas = [
+        {
+            header: "Tipo", key: "tipo_formatado",
+            render: (item: SugestaoItem) => (
+                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${item.tipo === "evento" ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"}`}>
+                    {item.tipo_formatado}
+                </span>
+            ),
+        },
+        { header: "Nome", key: "nome" },
+        { header: "Data / Info", key: "info_adicional" },
+    ];
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold mb-1 text-blue-800 uppercase tracking-tight">
-                Sugestões Pendentes
-            </h1>
-            <p className="text-gray-500 mb-6 text-sm">
-                Analise os dados enviados pelos usuários. Você pode editar as informações antes de aprovar.
-            </p>
+            <h1 className="text-2xl font-bold mb-1 text-blue-800 uppercase tracking-tight">Sugestões Pendentes</h1>
+            <p className="text-gray-500 mb-6 text-sm">Analise e aprove ou rejeite as sugestões enviadas pelos usuários.</p>
 
-            <div className="bg-white p-4 rounded-xl shadow-sm overflow-x-auto border border-gray-200">
-                <TabelaSimples
-                    colunas={colunas}
-                    dados={dadosComAcoes}
-                    onDelete={() => { }}
-                />
-
-                {/* {dados.length === 0 && (
-                    <div className="text-center py-10 text-gray-400">
-                        Nenhuma sugestão pendente no momento.
-                    </div>
-                )} */}
+            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+                {carregando ? <Skeleton /> : (
+                    <TabelaAdmin
+                        colunas={colunas}
+                        dados={dados}
+                        campoBusca={["nome", "tipo_formatado"]}
+                        acoes={(item: SugestaoItem) => (
+                            <>
+                                <button
+                                    onClick={() => navigate(`/${item.tipo === "evento" ? "editar-evento" : "editar-ponto-turistico"}/${item.id}`)}
+                                    className="px-3 py-1 rounded text-xs font-semibold bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors flex items-center gap-1"
+                                >
+                                    <Edit3 size={13} /> Analisar
+                                </button>
+                                <button
+                                    onClick={() => handleAprovar(item.id, item.tipo)}
+                                    className="px-3 py-1 rounded text-xs font-semibold bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-colors flex items-center gap-1"
+                                >
+                                    <Check size={13} /> Aprovar
+                                </button>
+                                <button
+                                    onClick={() => handleRejeitar(item.id, item.tipo)}
+                                    className="px-3 py-1 rounded text-xs font-semibold bg-red-100 text-red-700 hover:bg-red-200 transition-colors flex items-center gap-1"
+                                >
+                                    <X size={13} /> Rejeitar
+                                </button>
+                            </>
+                        )}
+                    />
+                )}
             </div>
+        </div>
+    );
+}
+
+function Skeleton() {
+    return (
+        <div className="animate-pulse flex flex-col gap-3">
+            <div className="h-9 bg-gray-100 rounded-lg w-full" />
+            {[...Array(5)].map((_, i) => <div key={i} className="h-12 bg-gray-50 rounded-lg w-full" />)}
         </div>
     );
 }

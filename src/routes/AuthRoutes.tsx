@@ -8,6 +8,13 @@ import { EventoDetalhes } from "../pages/PublicPages/EventoDetalhes";
 import { AppLayout } from "../components/layout/AppLayout";
 import { Sugestao } from "../pages/PublicPages/Sugestao";
 import { Login } from "../pages/PublicPages/Login";
+import { Cadastro } from "../pages/PublicPages/Cadastro";
+import { AtivarConta } from "../pages/PublicPages/AtivarConta";
+import { EsqueciSenha } from "../pages/PublicPages/EsqueciSenha";
+import { RedefinirSenha } from "../pages/PublicPages/RedefinirSenha";
+import { BuscaResultados } from "../pages/PublicPages/BuscaResultados";
+import { HotelPousada } from "../pages/PublicPages/HotelPousada";
+import { BarRestaurante } from "../pages/PublicPages/BarRestaurante";
 
 export function AuthRoutes() {
     return(
@@ -19,8 +26,17 @@ export function AuthRoutes() {
                 <Route path="/ponto-turistico/:id" element={<PontoTuristicoDetalhes />} />
                 <Route path="/evento" element={<Evento />} />
                 <Route path="/evento/:id" element={<EventoDetalhes />} />
+                <Route path="/hotel-pousada" element={<HotelPousada />} />
+                <Route path="/hotel-pousada/:id" element={<PontoTuristicoDetalhes />} />
+                <Route path="/bar-restaurante" element={<BarRestaurante />} />
+                <Route path="/bar-restaurante/:id" element={<PontoTuristicoDetalhes />} />
                 <Route path="/sugestao" element={<Sugestao />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/cadastro" element={<Cadastro />} />
+                <Route path="/ativar" element={<AtivarConta />} />
+                <Route path="/esqueci-senha" element={<EsqueciSenha />} />
+                <Route path="/redefinir-senha" element={<RedefinirSenha />} />
+                <Route path="/busca" element={<BuscaResultados />} />
             </Route>
             {/* Rota para páginas não encontradas */}
             <Route path="*" element={<NotFound />} />

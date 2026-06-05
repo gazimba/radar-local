@@ -1,62 +1,15 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { TabelaSimples } from "../../components/table/TabelaSimples";
-import { api } from "../../services/api";
+import { ListagemPontos } from "./ListagemPontos";
 
 export function PontoTuristico() {
-    const [dados, setDados] = useState([]);
-    const navigate = useNavigate();
-
-    const colunas = [
-        { header: "ID", key: "id" },
-        { header: "Nome", key: "nome" },
-        { header: "Descrição", key: "descricao" }
-    ];
-
-    async function carregarDados() {
-        try {
-            const response = await api.get("/api/pontos-turisticos");
-            setDados(response.data);
-        } catch (error) {
-            console.error("Erro ao carregar pontos turísticos:", error);
-        }
-    }
-
-    function handleEdit(id: number) {
-        navigate(`/editar-ponto-turistico/${id}`);
-    }
-
-    async function handleDelete(id: number) {
-        if (window.confirm("Tem certeza que deseja excluir este ponto turístico?")) {
-            try {
-                await api.delete(`/api/pontos-turisticos/${id}`);
-                carregarDados();
-            } catch (error) {
-                alert("Erro ao excluir item.");
-            }
-        }
-    }
-
-    useEffect(() => {
-        carregarDados();
-    }, []);
-
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-1 text-blue-800 uppercase tracking-tight">
-                Gerenciar Pontos Turísticos
-            </h1>
-            <p className="text-gray-500 mb-6 text-sm">
-                Aqui estão todos os pontos turísticos cadastrados. Você pode editar ou excluir qualquer ponto conforme necessário.
-            </p>
-            <div className="bg-white p-6 rounded-lg shadow-md overflow-x-auto border border-gray-100">
-                <TabelaSimples
-                    colunas={colunas}
-                    dados={dados}
-                    onDelete={handleDelete}
-                    onEdit={handleEdit}
-                />
-            </div>
-        </div>
+        <ListagemPontos
+            titulo="Pontos Turísticos"
+            categoria="PONTO_TURISTICO"
+            rotaCadastro="/cadastrar-ponto-turistico"
+            labelNovo="Novo Ponto"
+            corBotao="bg-blue-700 text-white border-blue-700"
+            corEditar="bg-blue-100 text-blue-700 hover:bg-blue-200"
+            corDesativar="bg-blue-50 text-blue-500 hover:bg-blue-100"
+        />
     );
 }

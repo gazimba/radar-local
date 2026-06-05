@@ -4,16 +4,12 @@ import { AppFooter } from "./AppFooter";
 
 export function AppLayout() {
     return (
-        <div className="flex flex-col h-screen overflow-hidden">
-            <header className="flex-none">
+        <div className="flex flex-col min-h-screen bg-gray-50">
+            <header className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
                 <AppHeader />
             </header>
-            <main className="h-screen w-full overflow-hidden"> 
-                <div className="h-full w-full overflow-y-auto flex p-4">
-                    <div className="w-full flex items-center justify-center">
-                        <Outlet />
-                    </div>
-                </div>
+            <main className="flex-1 w-full">
+                <Outlet />
             </main>
             <footer className="flex-none">
                 <AppFooter />
