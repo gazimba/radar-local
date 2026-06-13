@@ -234,7 +234,7 @@ export function CadastroEvento() {
                 </div>
                 {registroId ? (
                     <>
-                        <UploadImagens tipo="evento" registroId={registroId} imagensIniciais={imagens} />
+                        <UploadImagens tipo="evento" registroId={registroId} imagensIniciais={imagens} permitirCapa />
                         {novoId && (
                             <div className="mt-4 flex justify-end">
                                 <Button variant="default" onClick={() => navigate("/eventos")}>Concluir</Button>

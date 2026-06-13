@@ -233,7 +233,7 @@ export function CadastroPontoTuristico({ categoriaFixa = "PONTO_TURISTICO" as Ca
                 </div>
                 {registroId ? (
                     <>
-                        <UploadImagens tipo="ponto-turistico" registroId={registroId} imagensIniciais={imagens} />
+                        <UploadImagens tipo="ponto-turistico" registroId={registroId} imagensIniciais={imagens} permitirCapa />
                         {novoId && (
                             <div className="mt-4 flex justify-end">
                                 <Button variant="default" onClick={() => navigate(label.rota)}>

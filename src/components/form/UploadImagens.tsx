@@ -13,13 +13,14 @@ interface UploadImagensProps {
     tipo: "ponto-turistico" | "evento";
     registroId: number;
     imagensIniciais?: Imagem[];
+    permitirCapa?: boolean;
 }
 
 const FORMATOS_ACEITOS = ["image/jpeg", "image/png", "image/webp"];
 const TAMANHO_MAXIMO_MB = 5;
 const LIMITE = 5;
 
-export function UploadImagens({ tipo, registroId, imagensIniciais = [] }: UploadImagensProps) {
+export function UploadImagens({ tipo, registroId, imagensIniciais = [], permitirCapa = false }: UploadImagensProps) {
     const [imagens, setImagens] = useState<Imagem[]>(imagensIniciais);
     const [enviando, setEnviando] = useState(false);
     const [erro, setErro] = useState<string | null>(null);
@@ -102,7 +103,7 @@ export function UploadImagens({ tipo, registroId, imagensIniciais = [] }: Upload
                             )}
 
                             <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                                {!imagem.capa && (
+                                {permitirCapa && !imagem.capa && (
                                     <button
                                         type="button"
                                         onClick={() => handleDefinirCapa(imagem.id)}

@@ -1,6 +1,6 @@
 import { MapPinPlus, Search } from "lucide-react";
 import { Button } from "../../components/ui/button/Button";
-import { Link, useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { Helmet } from "react-helmet-async";
 import { PesquisaCidadeHeader } from "../../components/header/PesquisaCidadeHeader";
 import { useCidade } from "../../context/CidadeContext";
@@ -13,6 +13,8 @@ export function Home() {
     const navigate = useNavigate();
     const { cidadeSelecionada } = useCidade();
     const isLogged = getIsLogged();
+
+    if (isLogged) return <Navigate to="/ponto-turistico" replace />;
 
     function handleBuscar() {
         if (!cidadeSelecionada) return;
