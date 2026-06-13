@@ -45,11 +45,6 @@ function labelSilencio(silenciadoAte: string | null): string {
 type FiltroTipo = "todos" | "ponto-turistico" | "evento";
 type FiltroReport = "todos" | "reportados";
 
-function getCargo() {
-    try {
-        return JSON.parse(localStorage.getItem("@radar-local:user") ?? "{}")?.cargo ?? null;
-    } catch { return null; }
-}
 
 export function Comentarios() {
     const [comentarios, setComentarios] = useState<Comentario[]>([]);
