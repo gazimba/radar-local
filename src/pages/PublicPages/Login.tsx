@@ -8,7 +8,9 @@ import { FormResposta, type FormState } from "../../components/form/FormResposta
 import { BotaoGoogle } from "../../components/auth/BotaoGoogle";
 import { ModalVincularGoogle } from "../../components/auth/ModalVincularGoogle";
 
-async function loginAction(_prevState: any, formData: FormData): Promise<FormState> {
+type LoginState = FormState | { status: "nao_ativada"; message: string; email: string };
+
+async function loginAction(_prevState: any, formData: FormData): Promise<LoginState> {
     const data = Object.fromEntries(formData);
 
     try {
@@ -22,6 +24,9 @@ async function loginAction(_prevState: any, formData: FormData): Promise<FormSta
 
         return { message: "Login realizado com sucesso! Redirecionando...", status: "success" };
     } catch (error: any) {
+        if (error.response?.status === 403) {
+            return { status: "nao_ativada", message: error.response.data.message, email: String(data.email) };
+        }
         return {
             message: error.response?.data?.message || "Erro ao fazer login. Verifique suas credenciais.",
             status: "error",
@@ -34,6 +39,21 @@ export function Login() {
     const [erro, setErro] = useState<string | null>(null);
     const [dadosVincular, setDadosVincular] = useState<{ email: string; googleId: string; foto?: string } | null>(null);
     const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [reenviando, setReenviando] = useState(false);
+    const [msgReenvio, setMsgReenvio] = useState<string | null>(null);
+
+    async function handleReenviarAtivacao(email: string) {
+        setReenviando(true);
+        setMsgReenvio(null);
+        try {
+            const res = await api.post("/api/ativar/reenviar", { email });
+            setMsgReenvio(res.data.message);
+        } catch {
+            setMsgReenvio("Erro ao reenviar. Tente novamente.");
+        } finally {
+            setReenviando(false);
+        }
+    }
 
     useEffect(() => {
         if (state?.status === "success") {
@@ -98,8 +118,25 @@ export function Login() {
                         <div className="flex-1 h-px bg-gray-200" />
                     </div>
 
+                    {state?.status === "nao_ativada" && (
+                        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 flex flex-col gap-2">
+                            <p className="text-sm text-yellow-800 font-medium">{state.message}</p>
+                            {msgReenvio
+                                ? <p className="text-sm text-green-700">{msgReenvio}</p>
+                                : <button
+                                    type="button"
+                                    onClick={() => handleReenviarAtivacao(state.email)}
+                                    disabled={reenviando}
+                                    className="text-sm text-yellow-700 underline hover:text-yellow-900 text-left disabled:opacity-50"
+                                >
+                                    {reenviando ? "Reenviando..." : "Reenviar e-mail de ativação"}
+                                </button>
+                            }
+                        </div>
+                    )}
+
                     <form action={formAction} className="flex flex-col gap-4">
-                        <FormResposta state={state} />
+                        <FormResposta state={state?.status !== "nao_ativada" ? state : null} />
 
                         <div>
                             <label className="block text-gray-700 text-sm font-semibold mb-1.5" htmlFor="email">
