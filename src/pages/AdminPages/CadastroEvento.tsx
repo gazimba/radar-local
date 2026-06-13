@@ -1,6 +1,6 @@
 import { useActionState, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { Calendar, Clock, MapPin, Link2, Ticket, FileText, Info, Image } from "lucide-react";
+import { Calendar, Clock, MapPin, Link2, Ticket, FileText, Image } from "lucide-react";
 import { GerenciarLinks } from "../../components/form/GerenciarLinks";
 import { FormResposta, type FormState } from "../../components/form/FormResposta";
 import { Input } from "../../components/form/input/InputField";

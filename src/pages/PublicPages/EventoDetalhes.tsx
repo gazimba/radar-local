@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Helmet } from "react-helmet-async";
-import { Calendar, Clock, ExternalLink, MapPin, Ticket, ImageOff, Link2 } from "lucide-react";
+import { Calendar, Clock, ExternalLink, MapPin, Ticket, ImageOff } from "lucide-react";
 import { Carrosel } from "../../components/list/Carrosel";
 import { LocalizacaoMap } from "../../components/map/LocalizacaoMap";
 import { SecaoComentarios } from "../../components/comentarios/SecaoComentarios";

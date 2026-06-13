@@ -9,10 +9,12 @@ import { FormResposta, type FormState } from "../../components/form/FormResposta
 import { UploadImagens } from "../../components/form/UploadImagens";
 import { CheckCircle, LogIn, Ticket } from "lucide-react";
 
-interface SugestaoResult extends FormState {
+type SugestaoResult = {
+    status?: "success" | "error";
+    message?: string;
     id?: number;
     tipo?: "ponto-turistico" | "evento";
-}
+};
 
 async function sugerirLocalAction(_prevState: SugestaoResult | null, formData: FormData): Promise<SugestaoResult> {
     const data = Object.fromEntries(formData);

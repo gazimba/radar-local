@@ -67,7 +67,6 @@ export function Comentarios() {
     const toast = useToast();
     const confirm = useConfirm();
     const cargo = getCargo();
-    const isAdmin = cargo === "ADMINISTRADOR";
 
     const carregar = useCallback(async () => {
         setCarregando(true);
@@ -144,7 +143,7 @@ export function Comentarios() {
         const ok = await confirm({
             mensagem: `Remover silêncio de "${nomeUsuario}"?`,
             textoBotaoConfirmar: "Confirmar",
-            variante: "default",
+            variante: undefined,
         });
         if (!ok) return;
         try {
