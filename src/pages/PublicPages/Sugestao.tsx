@@ -5,7 +5,7 @@ import { Input } from "../../components/form/input/InputField";
 import { Select } from "../../components/form/input/SelectField";
 import { TextArea } from "../../components/form/input/TextAreaField";
 import { Button } from "../../components/ui/button/Button";
-import { FormResposta, type FormState } from "../../components/form/FormResposta";
+import { FormResposta } from "../../components/form/FormResposta";
 import { UploadImagens } from "../../components/form/UploadImagens";
 import { CheckCircle, LogIn, Ticket } from "lucide-react";
 

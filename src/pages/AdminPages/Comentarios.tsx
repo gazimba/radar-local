@@ -66,7 +66,6 @@ export function Comentarios() {
 
     const toast = useToast();
     const confirm = useConfirm();
-    const cargo = getCargo();
 
     const carregar = useCallback(async () => {
         setCarregando(true);
